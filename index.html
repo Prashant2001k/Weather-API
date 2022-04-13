@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link href="/wetherAppNodejs/input.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="input.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>Weather APP</title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+}
+body{
+    margin: auto;
+    padding: 16px;
+    /* --tw-bg-opacity:1; */
+    background-color: rgb(176, 108, 245);
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    /* --tw-text-opacity:1; */
+    color:rgb(255 255 255);
+    overflow: hidden;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
+ .box{
+    width: 100%;
+    border-radius: 0.5rem;
+    text-align: center;
+    /* padding-top: 1.25rem; */
+    margin: auto;
+    box-sizing: border-box;
+    background-color: rgb(17 24 39);
+    position: relative;
+    width: 66%;
+    min-width: fit-content;
+    overflow-wrap: break-word;
+}
+/* @media (min-width: 640px){
+    .container{
+        max-width: 640px;
+    }
+
+@media (min-width: 768px){
+    .container{
+        max-width: 768px;
+    }
+} */
+.weathercon{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    position:relative;
+    font-size: 4.5rem;
+    line-height:1;
+}
+.weathercon .fas{
+    position:relative;
+}
+.information{
+    padding: 1.5rem;
+    position: relative;
+}
+.tempimform{
+    justify-content: space-between;
+    align-items:center;
+    display: flex;
+    flex-direction: column;
+}
+.tempimform .location{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.tempimform .location .font-noraml{
+    font-weight: 400;
+}
+#date{
+    margin-bottom: 40px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+.tempimform .currtemp{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.tempimform .tempmin_max{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 300;
+}    
+@media(min-width: 640px){
+    .sm\:min-h-max{
+        min-height: max-content;
+    }
+    .sm\:w-72{
+        width: 18rem;
+    }
+}
+
+
+</style>
+<body>
+   
+    <div class="container sm:w-72 sm:min-h-max box">
+        <div class="weathercon" >
+            <i class="fas fa-sun" style="color: #ffde26"></i> 
+        </div>
+        
+        <div class="information ">
+            <div class="tempimform ">
+                <h2 class="location">
+                    <i class=" fas fa-street-view"></i>
+                    <p class="font-normal">{%location%},{%country%}</p>
+                </h2>
+                <p id="date" class="" >WED | OCT 23 | 10:49AM</p>
+                <h1 class="temp currtemp">{%tempval%}&deg;C</h1>
+                <h3 class="tempmin_max">Min {%tempmin%}&deg;C | Max {%tempmax%}&deg;C</h3>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+    <script>
+        const curDate=document.getElementById("date");
+        let wethercon=document.getElementById("weathercon");
+        const tempStatus="{%tempstatus%}";
+
+        const getCurrentDay=()=>{
+            let currentTime=new Date();
+            const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+            let day=weekday[currentTime.getDay()];
+            return day;
+        }
+
+        const getCurrentTime=()=>{
+            const mon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+            let now=new Date();
+            var month=now.getMonth();
+            var day=now.getDate();
+            var year=now.getFullYear();
+            
+            let hours=now.getHours();
+            let mins=now.getMinutes();
+
+            let periods="AM";
+            if(hours> 11){
+                periods="PM";
+                if(hours>12) hours -= 12;
+            }
+            
+            if(mins < 10){
+                mins ="0"+mins;
+            }
+
+            let time=`${mon[month]} ${day} | ${hours}:${mins}${periods}`;
+            return time;
+        }
+        
+        curDate.innerHTML=getCurrentDay()+ " | " +getCurrentTime();
+        // getCurrentDay();
+        // getCurrentTime();
+    </script>
